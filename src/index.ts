@@ -79,8 +79,6 @@ export default {
 				JSON.stringify({
 					success: true,
 					msg: 'Thank you for reaching out! 🎉',
-					notificationEmailResult,
-					thankYouEmailResult,
 				}),
 				{
 					status: 200,
