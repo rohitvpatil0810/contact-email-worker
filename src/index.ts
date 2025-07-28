@@ -78,7 +78,7 @@ export default {
 			return new Response(
 				JSON.stringify({
 					success: true,
-					msg: 'Thank you for reaching out! s🎉',
+					msg: 'Thank you for reaching out! 🎉',
 					notificationEmailResult,
 					thankYouEmailResult,
 				}),
