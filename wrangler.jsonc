@@ -10,7 +10,23 @@
 	"compatibility_date": "2025-07-26",
 	"observability": {
 		"enabled": true
-	}
+	},
+
+	/**
+	 * Environment Variables
+	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
+	 */
+	"vars": {
+		"RESEND_FROM": "Rohit Patil <contact@rohitpatil.net>",
+		"SITE_DOMAIN": "rohitpatil.net"
+	},
+	/**
+	 * Note: Use secrets to store sensitive data.
+	 * https://developers.cloudflare.com/workers/configuration/secrets/
+	 *
+	 * Secrets (set with `wrangler secret put`): API_KEY, MY_EMAIL, RESEND_API_KEY
+	 */
+
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
@@ -22,16 +38,6 @@
 	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
 	 * databases, object storage, AI inference, real-time communication and more.
 	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
-	 */
-
-	/**
-	 * Environment Variables
-	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
-	 */
-	// "vars": { "MY_VARIABLE": "production_value" },
-	/**
-	 * Note: Use secrets to store sensitive data.
-	 * https://developers.cloudflare.com/workers/configuration/secrets/
 	 */
 
 	/**

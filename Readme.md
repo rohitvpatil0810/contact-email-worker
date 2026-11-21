@@ -102,7 +102,7 @@ npx wrangler secret put API_KEY
 npm run deploy
 ```
 
-`MY_EMAIL`, `RESEND_FROM` and `SITE_DOMAIN` can be plain vars — add them under `"vars"` in `wrangler.jsonc`, or store them as secrets with `wrangler secret put` as well.
+`RESEND_FROM` and `SITE_DOMAIN` are set under `"vars"` in `wrangler.jsonc`. `MY_EMAIL` can be added there as well, or stored as a secret with `wrangler secret put`.
 
 Once the first Resend send succeeds, the old SMTP secrets are no longer used:
 
