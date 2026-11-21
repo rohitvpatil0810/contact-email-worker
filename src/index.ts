@@ -34,7 +34,7 @@ export default {
 						headers: {
 							'Content-Type': 'application/json',
 						},
-					}
+					},
 				);
 			}
 
@@ -49,7 +49,7 @@ export default {
 						headers: {
 							'Content-Type': 'application/json',
 						},
-					}
+					},
 				);
 			}
 
@@ -58,7 +58,8 @@ export default {
 
 			let notificationEmailData = {
 				receiver: env.MY_EMAIL,
-				subject: 'New Message Alert! 📬',
+				subject: `New message from ${env.SITE_DOMAIN}`,
+				replyTo: email,
 			};
 
 			let notificationEmailResult = await sendEmail(notificationEmailData, notificationEmail, env);
@@ -70,7 +71,8 @@ export default {
 
 			let thankYouEmailData = {
 				receiver: email,
-				subject: 'Thank you for reaching out! 🎉',
+				subject: 'Thanks for reaching out',
+				replyTo: env.MY_EMAIL,
 			};
 
 			let thankYouEmailResult = await sendEmail(thankYouEmailData, thankYouEmail, env);
@@ -78,14 +80,14 @@ export default {
 			return new Response(
 				JSON.stringify({
 					success: true,
-					msg: 'Thank you for reaching out! 🎉',
+					msg: 'Thank you for reaching out!',
 				}),
 				{
 					status: 200,
 					headers: {
 						'Content-Type': 'application/json',
 					},
-				}
+				},
 			);
 		} catch (error) {
 			console.log(error);
@@ -100,7 +102,7 @@ export default {
 					headers: {
 						'Content-Type': 'application/json',
 					},
-				}
+				},
 			);
 		}
 	},
