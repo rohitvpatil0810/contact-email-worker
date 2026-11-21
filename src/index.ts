@@ -59,6 +59,7 @@ export default {
 			let notificationEmailData = {
 				receiver: env.MY_EMAIL,
 				subject: 'New Message Alert! 📬',
+				replyTo: email,
 			};
 
 			let notificationEmailResult = await sendEmail(notificationEmailData, notificationEmail, env);

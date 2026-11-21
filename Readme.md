@@ -9,6 +9,7 @@
 ## ✨ Features
 
 - 📩 **Email Notifications**: Sends notification to Rohit and the sender when someone fills out the contact form.
+- 📮 **Resend**: Delivers both emails through the [Resend](https://resend.com) HTTP API — no SMTP credentials or `nodemailer` required.
 - 🔐 **API Key Protection**: Secures the API endpoint using an API key.
 - ☁️ **Cloudflare Workers**: Lightweight, serverless, and highly performant deployment using Cloudflare Workers.
 
@@ -36,11 +37,32 @@ Create a file named `.dev.vars` in the root directory:
 ```dotenv
 API_KEY="your_api_key"
 MY_EMAIL="your_email_to_receive_notification@example.com"
-EMAIL="your_email_for_sending_notifications@example.com"
-EMAIL_PASSWORD="your_email_password"
+RESEND_API_KEY="re_your_resend_api_key"
+RESEND_FROM="Your Name <contact@your-verified-domain.com>"
 ```
 
-### 4. Start Local Development Server
+| Variable | Description |
+| --- | --- |
+| `API_KEY` | Value expected in the `x-api-key` request header. |
+| `MY_EMAIL` | Inbox that receives the new-message notification. |
+| `RESEND_API_KEY` | API key from [Resend](https://resend.com/api-keys). Keep this secret. |
+| `RESEND_FROM` | Sender shown to recipients. The domain **must be verified in Resend**. |
+
+### 4. Set Up Resend
+
+1. Create an account at [resend.com](https://resend.com) and add a domain under **Domains**.
+2. Add the DNS records Resend provides and wait for the domain to show as **Verified**.
+3. Create an API key and put it in `.dev.vars` as `RESEND_API_KEY`.
+
+> 💡 Without a verified domain, Resend only allows sending from `onboarding@resend.dev`, and only to the email address of the Resend account owner.
+
+For production, store the API key as a secret:
+
+```bash
+npx wrangler secret put RESEND_API_KEY
+```
+
+### 5. Start Local Development Server
 
 ```bash
 npm run dev
@@ -66,3 +88,23 @@ curl -X POST http://localhost:8787/ \
     "message": "message_of_messager"
 }'
 ```
+
+---
+
+## 🚢 Deployment
+
+```bash
+npx wrangler secret put RESEND_API_KEY
+npx wrangler secret put API_KEY
+npm run deploy
+```
+
+`MY_EMAIL` and `RESEND_FROM` can be plain vars — add them under `"vars"` in `wrangler.jsonc`, or store them as secrets with `wrangler secret put` as well.
+
+Once the first Resend send succeeds, the old SMTP secrets are no longer used:
+
+```bash
+npx wrangler secret delete EMAIL
+npx wrangler secret delete EMAIL_PASSWORD
+```
+

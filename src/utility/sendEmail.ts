@@ -1,37 +1,51 @@
-import nodemailer from 'nodemailer';
+const RESEND_API_URL = 'https://api.resend.com/emails';
 
 export type EmailData = {
 	receiver: string;
 	subject: string;
+	replyTo?: string;
+};
+
+type ResendSuccessResponse = {
+	id: string;
+};
+
+type ResendErrorResponse = {
+	name?: string;
+	message?: string;
 };
 
 export const sendEmail = async (data: EmailData, email: string, env: Env) => {
-	const transponder = nodemailer.createTransport({
-		pool: true,
-		host: 'smtp.gmail.com',
-		port: 465,
-		secure: true, // use TLS
-		auth: {
-			user: env.EMAIL,
-			pass: env.EMAIL_PASSWORD,
+	const response = await fetch(RESEND_API_URL, {
+		method: 'POST',
+		headers: {
+			Authorization: `Bearer ${env.RESEND_API_KEY}`,
+			'Content-Type': 'application/json',
 		},
-		tls: {
-			// do not fail on invalid certs
-			// rejectUnauthorized: false,
-		},
+		body: JSON.stringify({
+			from: env.RESEND_FROM,
+			to: data.receiver,
+			subject: data.subject,
+			html: email,
+			...(data.replyTo ? { reply_to: data.replyTo } : {}),
+		}),
+		signal: AbortSignal.timeout(10_000),
 	});
 
-	let mailOptions = {
-		from: env.EMAIL,
-		to: data.receiver,
-		subject: data.subject,
-		html: email,
-	};
-
+	const body = await response.text();
+	let result: ResendSuccessResponse | ResendErrorResponse = {};
 	try {
-		let result = await transponder.sendMail(mailOptions);
-		return result;
-	} catch (error) {
-		throw error;
+		result = JSON.parse(body);
+	} catch {
+		// Non-JSON body (e.g. a gateway error page); fall through to the status check below.
 	}
+
+	if (!response.ok) {
+		const error = result as ResendErrorResponse;
+		throw new Error(
+			`Resend API error (${response.status} ${error.name ?? 'unknown'}): ${error.message ?? (body || 'Unknown error')}`
+		);
+	}
+
+	return result as ResendSuccessResponse;
 };
