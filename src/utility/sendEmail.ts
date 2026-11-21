@@ -1,4 +1,4 @@
-const RESEND_API_URL = 'https://api.resend.com/emails';
+import { RESEND_API_URL } from '../constants/config';
 
 export type EmailData = {
 	receiver: string;

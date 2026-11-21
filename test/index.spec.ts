@@ -10,6 +10,7 @@ const testEnv = {
 	MY_EMAIL: 'owner@example.com',
 	RESEND_API_KEY: 're_test_key',
 	RESEND_FROM: 'Contact <contact@example.com>',
+	SITE_DOMAIN: 'example.com',
 } satisfies Env;
 
 const validBody = { name: 'Jane Doe', email: 'jane@example.com', message: 'Hello there!' };
@@ -136,7 +137,7 @@ describe('contact worker', () => {
 		expect(sentPayload(0)).toMatchObject({
 			from: testEnv.RESEND_FROM,
 			to: testEnv.MY_EMAIL,
-			subject: 'New message from rohitpatil.net',
+			subject: `New message from ${testEnv.SITE_DOMAIN}`,
 			reply_to: 'jane@example.com',
 		});
 		expect(sentPayload(0).html).toContain('Hello there!');

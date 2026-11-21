@@ -40,6 +40,7 @@ API_KEY="your_api_key"
 MY_EMAIL="your_email_to_receive_notification@example.com"
 RESEND_API_KEY="re_your_resend_api_key"
 RESEND_FROM="Your Name <contact@your-verified-domain.com>"
+SITE_DOMAIN="your-domain.com"
 ```
 
 | Variable | Description |
@@ -48,6 +49,7 @@ RESEND_FROM="Your Name <contact@your-verified-domain.com>"
 | `MY_EMAIL` | Inbox that receives the new-message notification. |
 | `RESEND_API_KEY` | API key from [Resend](https://resend.com/api-keys). Keep this secret. |
 | `RESEND_FROM` | Sender shown to recipients. The domain **must be verified in Resend**. |
+| `SITE_DOMAIN` | Domain used in the notification subject, e.g. `New message from your-domain.com`. |
 
 ### 4. Set Up Resend
 
@@ -100,7 +102,7 @@ npx wrangler secret put API_KEY
 npm run deploy
 ```
 
-`MY_EMAIL` and `RESEND_FROM` can be plain vars — add them under `"vars"` in `wrangler.jsonc`, or store them as secrets with `wrangler secret put` as well.
+`MY_EMAIL`, `RESEND_FROM` and `SITE_DOMAIN` can be plain vars — add them under `"vars"` in `wrangler.jsonc`, or store them as secrets with `wrangler secret put` as well.
 
 Once the first Resend send succeeds, the old SMTP secrets are no longer used:
 

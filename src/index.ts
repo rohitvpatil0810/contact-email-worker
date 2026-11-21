@@ -58,7 +58,7 @@ export default {
 
 			let notificationEmailData = {
 				receiver: env.MY_EMAIL,
-				subject: 'New message from rohitpatil.net',
+				subject: `New message from ${env.SITE_DOMAIN}`,
 				replyTo: email,
 			};
 
