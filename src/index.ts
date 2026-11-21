@@ -72,6 +72,7 @@ export default {
 			let thankYouEmailData = {
 				receiver: email,
 				subject: 'Thank you for reaching out! 🎉',
+				replyTo: env.MY_EMAIL,
 			};
 
 			let thankYouEmailResult = await sendEmail(thankYouEmailData, thankYouEmail, env);

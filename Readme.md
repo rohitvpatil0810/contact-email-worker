@@ -10,6 +10,7 @@
 
 - 📩 **Email Notifications**: Sends notification to Rohit and the sender when someone fills out the contact form.
 - 📮 **Resend**: Delivers both emails through the [Resend](https://resend.com) HTTP API — no SMTP credentials or `nodemailer` required.
+- ↩️ **Reply-To**: Replies to the notification go to the form submitter, and replies to the thank-you email go to your inbox.
 - 🔐 **API Key Protection**: Secures the API endpoint using an API key.
 - ☁️ **Cloudflare Workers**: Lightweight, serverless, and highly performant deployment using Cloudflare Workers.
 

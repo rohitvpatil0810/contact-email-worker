@@ -145,8 +145,8 @@ describe('contact worker', () => {
 			from: testEnv.RESEND_FROM,
 			to: 'jane@example.com',
 			subject: 'Thank you for reaching out! 🎉',
+			reply_to: testEnv.MY_EMAIL,
 		});
-		expect(sentPayload(1).reply_to).toBeUndefined();
 		expect(sentPayload(1).html).toContain('Jane Doe');
 	});
 
