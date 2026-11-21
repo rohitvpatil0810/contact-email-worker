@@ -58,7 +58,7 @@ export default {
 
 			let notificationEmailData = {
 				receiver: env.MY_EMAIL,
-				subject: 'New Message Alert! 📬',
+				subject: 'New message from rohitpatil.net',
 				replyTo: email,
 			};
 
@@ -71,7 +71,7 @@ export default {
 
 			let thankYouEmailData = {
 				receiver: email,
-				subject: 'Thank you for reaching out! 🎉',
+				subject: 'Thanks for reaching out',
 				replyTo: env.MY_EMAIL,
 			};
 

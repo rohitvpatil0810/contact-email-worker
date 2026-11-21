@@ -136,7 +136,7 @@ describe('contact worker', () => {
 		expect(sentPayload(0)).toMatchObject({
 			from: testEnv.RESEND_FROM,
 			to: testEnv.MY_EMAIL,
-			subject: 'New Message Alert! 📬',
+			subject: 'New message from rohitpatil.net',
 			reply_to: 'jane@example.com',
 		});
 		expect(sentPayload(0).html).toContain('Hello there!');
@@ -144,7 +144,7 @@ describe('contact worker', () => {
 		expect(sentPayload(1)).toMatchObject({
 			from: testEnv.RESEND_FROM,
 			to: 'jane@example.com',
-			subject: 'Thank you for reaching out! 🎉',
+			subject: 'Thanks for reaching out',
 			reply_to: testEnv.MY_EMAIL,
 		});
 		expect(sentPayload(1).html).toContain('Jane Doe');
