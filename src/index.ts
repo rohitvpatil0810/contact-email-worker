@@ -34,7 +34,7 @@ export default {
 						headers: {
 							'Content-Type': 'application/json',
 						},
-					}
+					},
 				);
 			}
 
@@ -49,7 +49,7 @@ export default {
 						headers: {
 							'Content-Type': 'application/json',
 						},
-					}
+					},
 				);
 			}
 
@@ -80,14 +80,14 @@ export default {
 			return new Response(
 				JSON.stringify({
 					success: true,
-					msg: 'Thank you for reaching out! 🎉',
+					msg: 'Thank you for reaching out!',
 				}),
 				{
 					status: 200,
 					headers: {
 						'Content-Type': 'application/json',
 					},
-				}
+				},
 			);
 		} catch (error) {
 			console.log(error);
@@ -102,7 +102,7 @@ export default {
 					headers: {
 						'Content-Type': 'application/json',
 					},
-				}
+				},
 			);
 		}
 	},
